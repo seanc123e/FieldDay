@@ -1,0 +1,66 @@
+/* MAIN PAGE */
+h3, a, p {
+    color:#000022;
+}
+.navbar {
+    background-color: #7D98A1;
+}
+
+.navbar a {
+    color: #000022;
+}
+
+.navbar ul > li > a:hover{
+    background-color: #A9B4C2;
+}
+
+#loginSignupBtn {
+    text-decoration: none;
+}
+
+#loginSignupBtn:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-color: #EEF1EF;
+}
+
+.activityTitle {
+    text-decoration: none;
+}
+
+.activityTitle:hover{
+    color: #000022;
+    text-decoration: underline;
+}
+
+#seeMore {
+    position: relative;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* z-index: ; */
+}
+
+.centered:hover {
+    color: #00002270;
+}
+
+
+/* LOGIN PAGE */
+.custom-login-background {
+    /* background: ; */
+    background-image: linear-gradient(180deg, rgba(171,198,233,1) 0%, rgba(137,186,202,1) 11%, rgba(1,1,77,1) 70%);
+}
+
+a > #loginBtn {
+    color: white;
+}
+a > #loginBtn:hover {
+    color: #000022;
+}

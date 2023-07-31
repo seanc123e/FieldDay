@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../images/just-FD.png">
+    <title>FieldDay</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+    <!--JavaScript-->
+    <script type="text/javascript" src="app.js"></script>
+    <!-- Font Awesome-->
+    <script src="https://kit.fontawesome.com/79c970e66a.js" crossorigin="anonymous"></script>
+    </link>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm d-flex" id="navbar">
+    <div class="container-xxl">
+        <a class="navbar-brand rounded-circle" href="#hero"><img src="../images/F-removebg-preview.png" width="65" height="65" class="img-fluid px-md-1 logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="d-flex justify-content-end text-center order-lg-2">
+            <a id="loginSignupBtn" href="login.html" class="fw-bold ml-2">Login<br>or<br>Signup</a>
+        </div>
+        <div class="collapse navbar-collapse d-lg-flex justify-content-end col-lg-8 mx-3 order-xs-2" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link fw-bold rounded-pill text-center mx-2" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-bold rounded-pill text-center mx-2" href="createEvent.html">Create an event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-bold rounded-pill text-center mx-2" href="myEvents.html">My Events</a>
+                </li>
+            </ul>
+            <form class="form-inline d-flex">
+                <input class="form-control mr-sm-2 align-bottom" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark mx-2" type="submit"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--HERO-->
+<div class="container-xxl vh-100">
+    <div class="w-100">
+        <h2 class="fw-bold px-3 px-md-5 pt-5">Create an Event</h2>
+        <hr>
+    </div>
+    <form id="createEventForm">
+        <div class="row">
+            <div class="col-12 col-md-3 gx-3 px-2 mx-md-5">
+                <div class="row border border-dark rounded mx-3 mx-md-0 px-md-2 py-3">
+                    <img src="https://placehold.co/400">
+                    <h5 class="mt-3">Insert a photo for your event here</h5>
+                </div>
+            </div>
+            <div class="col-12 col-md-7 gx-3 pr-5">
+                <div class="row form-outline pb-3 mx-3 mx-md-0 mt-3">
+                    <label class="form-label" for="createEventName">Name of Event</label>
+                    <input type="text" id="createEventName" class="form-control" pattern="^[a-zA-Z ]+" required/>
+                </div>
+                <div class="row form-outline pb-3 mx-3 mx-md-0">
+                    <label class="form-label" for="createEventDescription">Descrption of Event</label>
+                    <input type="text" id="createEventDescription" class="form-control" required/>
+                </div>
+                <div class="row form-outline pb-3 mx-3 mx-md-0">
+                    <label class="form-label" for="createEventLocation">Location of Event</label>
+                    <input type="text" id="createEventLocation" class="form-control" required/>
+                </div>
+                <div class="row form-outline pb-3 mx-3 mx-md-0">
+                    <label class="form-label" for="createEventDateTime">Date and Time of Event</label>
+                    <input type="datetime-local" id="createEventDateTime" class="form-control" required/>
+                </div>
+                <div class="row form-outline pb-3 mx-3 mx-md-0">
+                    <label class="form-label" for="createEventHost">Host of Event</label>
+                    <input type="text" id="createEventHost" class="form-control" required/>
+                </div>
+                <div class="row form-outline pb-3 mx-3 mx-md-0">
+                    <label class="form-label" for="createEventPrice">Price of Event</label>
+                    <input type="number" id="createEventPrice" class="form-control"/>
+                </div>
+
+                <button type="submit" class="btn btn-outline-dark btn-lg mb-3 mx-3 mx-md-0" id="createEventBtn">Create Event</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>
