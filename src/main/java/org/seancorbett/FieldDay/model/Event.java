@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Data
+@Table(name = "event")
 public class Event {
 
     @Id
@@ -29,17 +30,16 @@ public class Event {
     private String time;
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "host_user_id")
-    private Veteran host;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Host host;
 
     private String eventImage = "https://picsum.photos/300/200";
 
     @ManyToMany
-    @JoinTable (name = "user_events",
+    @JoinTable (name = "veteran_events",
                 joinColumns = @JoinColumn(name = "eventId"),
                 inverseJoinColumns = @JoinColumn(name = "userId"))
-    private List<Veteran> attendees = new ArrayList<Veteran>();
+    private List<User> attendees = new ArrayList<User>();
 
     //CREATE METHODS
     public Event createEvent(){
@@ -55,7 +55,7 @@ public class Event {
         return null;
     }
 
-    public List<User> getAttendees(){
+    public List<UserRules> getAttendees(){
         return null;
     }
 

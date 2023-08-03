@@ -1,9 +1,6 @@
 package org.seancorbett.FieldDay.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -14,17 +11,28 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-public class Host implements User{
+@Table(name = "host")
+public class Host implements UserRules {
 
+    //Creation of unique host ID
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int hostId;
-    private int userId;
+
+    //Creation of relationship to veteran Id
+    @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "veteran_id")
+    private User userFk;
     private String firstName;
     private String lastName;
     private Branch branch;
     private Boolean active;
-    private List hostEvents;
+
+    @OneToMany (mappedBy = "host",
+                cascade = CascadeType.ALL)
+//    @JoinColumn (name = "hostId")
+    private List<Event> events;
+
 
     //READ METHODS
     @Override
