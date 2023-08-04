@@ -2,18 +2,23 @@ package org.seancorbett.FieldDay.config;
 
 import org.seancorbett.FieldDay.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -42,27 +47,37 @@ public class SecurityConfig {
     }
 //TODO - finish authentication and auhtorization
     @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
-        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-        http.authorizeHttpRequests((auth) -> auth
-                                .requestMatchers(mvcMatcherBuilder.pattern("/*"))
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(requestMatcher("/home")).authenticated()
+                )
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(requestMatcher("/", "/login*", "/css/**", "/js/**", "/signup", "/signup-process")).permitAll()
+                )
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/home", true)
                                 .permitAll()
-                                .anyRequest()
-                                .authenticated()
                 )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login") // should point to login page
-                        .successForwardUrl("/home") // must be in order thymeleaf security extras work
-                        .permitAll()
-                )
-                /*.logout(logout -> logout
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .permitAll()
-                )*/;
-        return http.build();
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/logout")
+                                .invalidateHttpSession(true)
+                                .clearAuthentication(true)
+                                .deleteCookies("JSESSIONID")
+                                .logoutSuccessUrl("/login")
+                );
 
+        return http.build();
+    }
+
+    private RequestMatcher requestMatcher(String... patterns) {
+        String pattern = String.join(",", patterns);
+        return new AntPathRequestMatcher(pattern);
     }
 }

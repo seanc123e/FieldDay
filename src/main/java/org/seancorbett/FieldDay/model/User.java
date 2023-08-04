@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "veteran")
+@Table(name = "user")
 public class User implements UserRules {
 
     @Id
@@ -31,18 +31,18 @@ public class User implements UserRules {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendees", cascade = CascadeType.ALL)
-    private List<Event> veteranEvents = new ArrayList<Event>();
+    private List<Event> userEvents = new ArrayList<Event>();
 
     @OneToOne (targetEntity = Host.class)
     @JoinColumn(name = "host_id")
     private int hostFk;
 
-    public User(String firstName, String lastName, String email, String password, List<Event> veteranEvents) {
+    public User(String firstName, String lastName, String email, String password, List<Event> userEvents) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.veteranEvents = veteranEvents;
+        this.userEvents = userEvents;
     }
 
     // CREATE METHODS

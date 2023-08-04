@@ -36,7 +36,7 @@ public class Event {
     private String eventImage = "https://picsum.photos/300/200";
 
     @ManyToMany
-    @JoinTable (name = "veteran_events",
+    @JoinTable (name = "user_events",
                 joinColumns = @JoinColumn(name = "eventId"),
                 inverseJoinColumns = @JoinColumn(name = "userId"))
     private List<User> attendees = new ArrayList<User>();

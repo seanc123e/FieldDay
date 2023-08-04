@@ -19,9 +19,9 @@ public class Host implements UserRules {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int hostId;
 
-    //Creation of relationship to veteran Id
+    //Creation of relationship to userId
     @OneToOne(targetEntity = User.class)
-    @JoinColumn(name = "veteran_id")
+    @JoinColumn(name = "user_id")
     private User userFk;
     private String firstName;
     private String lastName;
