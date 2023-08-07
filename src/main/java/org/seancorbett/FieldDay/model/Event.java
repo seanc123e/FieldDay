@@ -55,7 +55,7 @@ public class Event {
         return null;
     }
 
-    public List<UserRules> getAttendees(){
+    public List<User> getAttendees(){
         return null;
     }
 

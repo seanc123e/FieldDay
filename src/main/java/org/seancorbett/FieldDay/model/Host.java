@@ -9,10 +9,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "host")
-public class Host implements UserRules {
+public class Host {
 
     //Creation of unique host ID
     @Id
@@ -22,20 +21,22 @@ public class Host implements UserRules {
     //Creation of relationship to userId
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    private User userFk;
+    private User user;
+
     private String firstName;
+
     private String lastName;
+
     private Branch branch;
+
     private Boolean active;
 
     @OneToMany (mappedBy = "host",
                 cascade = CascadeType.ALL)
-//    @JoinColumn (name = "hostId")
     private List<Event> events;
 
 
     //READ METHODS
-    @Override
     public User getUserById() {
         return null;
     }

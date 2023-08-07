@@ -3,16 +3,14 @@ package org.seancorbett.FieldDay.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "user")
-public class User implements UserRules {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,44 +22,104 @@ public class User implements UserRules {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(unique = true, nullable = false, name="username")
+    private String username;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private Branch branch;
+
+    @Column(nullable = false)
+    private Boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendees", cascade = CascadeType.ALL)
     private List<Event> userEvents = new ArrayList<Event>();
 
     @OneToOne (targetEntity = Host.class)
     @JoinColumn(name = "host_id")
-    private int hostFk;
+    private Host host;
 
-    public User(String firstName, String lastName, String email, String password, List<Event> userEvents) {
+    public User(String firstName, String lastName, String username, String password, Branch branch, Boolean active, List<Event> userEvents) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.username = username;
         this.password = password;
+        this.branch = branch;
+        this.active = active;
         this.userEvents = userEvents;
     }
 
-    // CREATE METHODS
-    public User createUser(){
-        return null;
+    public int getUserId() {
+        return userId;
     }
 
-    //READ METHODS
-    @Override
-    public User getUserById() {
-        return null;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public List<Event> getUserEvents(){
-        return null;
+    public String getFirstName() {
+        return firstName;
     }
 
-    //UPDATE METHODS
-    public void updateUser(){
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public List<Event> getUserEvents() {
+        return userEvents;
+    }
+
+    public void setUserEvents(List<Event> userEvents) {
+        this.userEvents = userEvents;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
     }
 }
