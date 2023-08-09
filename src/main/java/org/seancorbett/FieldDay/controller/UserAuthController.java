@@ -70,6 +70,9 @@ public class UserAuthController {
     //mapping for home request
     @GetMapping("/home")
     public String home() {
+//        User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
+//        User existingUserPassword = userService.findUserByUsername(userDto.getUsername());
+//        if(existingUserEmail = )
         return "home";
     }
 
@@ -89,11 +92,6 @@ public class UserAuthController {
     @GetMapping("/error")
     public String error(){
         return "error";
-    }
-
-    @GetMapping("/logout")
-    public String logout(){
-        return "logout";
     }
 
     // handler method is used to handle a list of users

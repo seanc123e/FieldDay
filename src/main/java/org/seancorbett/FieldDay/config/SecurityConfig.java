@@ -14,8 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import static javax.management.Query.and;
 
 
 @Configuration
@@ -40,22 +44,29 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
     }
-//TODO - finish authentication and auhtorization
+//TODO - finish authentication and authorization
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers(requestMatcher("/home", "/createEvent", "/myEvents", "/profile"))
+
+                /*.authorizeHttpRequests((auth) ->
+                        auth
+                                .requestMatchers(requestMatcher("/", "/login*", "/css/*", "/js/*", "/signup", "/signup-process", "/error"))
+                                //.antMatchers("/login", "/static/**", "/signup", "/signup-process")
+                                .permitAll()
+                                .requestMatchers(requestMatcher("/", "/home*", "/createEvent", "/myEvents", "/profile")) //antmatchers and use home and use roles
+                                //.antMatchers("/", "/home", "/createEvent", "/myEvents", "/profile")
                                 .authenticated()
                 )
-                .authorizeRequests(authorizeRequests ->
+                *//*.authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(requestMatcher("/", "/login*", "/css/**", "/js/**", "/signup", "/signup-process", "/images/**"))
-                                .permitAll()
-                )
-                .formLogin(formLogin ->
-                        formLogin
+                                .requestMatchers(requestMatcher("/",  "/createEvent", "/myEvents", "/profile")) // "/home**",antmatchers and use home and use roles
+                                .antMatchers("/", "/createEvent", "/myEvents", "/profile")
+                                .authenticated()
+                                .anyRequest()
+                                .denyAll()
+                )*//*
+                .formLogin(form ->
+                        form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/home", true)
@@ -63,13 +74,39 @@ public class SecurityConfig {
                 )
                 .logout(logout ->
                         logout
-                                .logoutUrl("/logout")
+                                //.logoutUrl("/logout")
                                 .invalidateHttpSession(true)
                                 .clearAuthentication(true)
-                                .deleteCookies("JSESSIONID")
+                                //.deleteCookies("JSESSIONID")
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/login")
-                );
-
+                                .permitAll()
+                )*/
+            //TODO DEFINE RELATIONSHIP FOR ROLES CLASS, ADD ROLES INTO SQL TABLE
+        http
+            .csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((authz) -> {
+                    authz
+                        .requestMatchers(requestMatcher("/signup/**")).permitAll()
+//                        .requestMatchers(requestMatcher("/login")).permitAll()
+                        .requestMatchers(requestMatcher("/css/**")).permitAll()
+    //                            .requestMatchers(requestMatcher("/home")).permitAll();
+                        .requestMatchers(requestMatcher("/home")).hasRole("USER_ROLE");
+                })
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/home")
+                                .permitAll()
+                ).logout(
+                        logout -> logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .permitAll());
+//                .exceptionHandling(exceptionHandling ->
+//                        exceptionHandling
+//                                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+//                );
         return http.build();
     }
 

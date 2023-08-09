@@ -41,6 +41,13 @@ public class User implements Serializable {
     @JoinColumn(name = "host_id")
     private Host host;
 
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable (name ="user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id ", referencedColumnName = "id"
+            )})
+    public List<Role> roles = new ArrayList<>();
+
     public User(String firstName, String lastName, String username, String password, Branch branch, Boolean active, List<Event> userEvents) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -122,4 +129,13 @@ public class User implements Serializable {
     public void setHost(Host host) {
         this.host = host;
     }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
 }
