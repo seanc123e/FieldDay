@@ -30,13 +30,14 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+    //********DEPENDENCY INJECTION********
     @Autowired
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-
+    //********CONSTRUCTOR********
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder encoder) {
         super();
         this.userRepository = userRepository;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
         this.encoder = encoder;
     }
 
-    //loads user, username is actually email
+    //********LOADS USER, USERNAME IS ACTUALLY EMAIL********
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
         return new UserPrincipal(user);
     }
 
-    // CREATE METHODS
+    //********CREATE METHODS********
     @Transactional
     public void create(UserDto userDto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -89,9 +90,6 @@ public class UserServiceImpl implements UserService {
         return roleRepository.save(role);
     }
 
-
-    /**    * In this example login and email has the same values @param email @return
-     */
 
     @Override
     public void saveUser(UserDto userDto) {
@@ -132,7 +130,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-    //READ METHODS
+    //********READ METHODS********
     public User getUserById() {
         return null;
     }
@@ -146,7 +144,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    //UPDATE METHODS
+    //********UPDATE METHODS********
     public void updateUser(){
 
     }

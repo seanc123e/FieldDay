@@ -89,9 +89,14 @@ public class SecurityConfig {
                     authz
                         .requestMatchers(requestMatcher("/signup/**")).permitAll()
 //                        .requestMatchers(requestMatcher("/login")).permitAll()
+                        .requestMatchers(requestMatcher("/js/**")).permitAll()
                         .requestMatchers(requestMatcher("/css/**")).permitAll()
-    //                            .requestMatchers(requestMatcher("/home")).permitAll();
-                        .requestMatchers(requestMatcher("/home")).hasRole("USER_ROLE");
+                        .requestMatchers(requestMatcher("/images/**")).permitAll()
+                        .requestMatchers(requestMatcher("/home")).permitAll()
+                        .requestMatchers(requestMatcher("/createEvent")).permitAll()
+                        .requestMatchers(requestMatcher("/myEvents")).permitAll()
+                        .requestMatchers(requestMatcher("/events")).permitAll();
+//                        .requestMatchers(requestMatcher("/home")).hasRole("USER_ROLE");
                 })
                 .formLogin(
                         form -> form

@@ -60,40 +60,44 @@
         <h2 class="fw-bold px-3 px-md-5 pt-5">Create an Event</h2>
         <hr>
     </div>
-    <form id="createEventForm">
+    <form id="createEventForm" th:object="${event}" th:action="@{/createEvent}" method="post"> <!---->
         <div class="row">
             <div class="col-12 col-md-3 gx-3 px-2 mx-md-5">
                 <div class="row border border-dark rounded mx-3 mx-md-0 px-md-2 py-3">
-                    <img src="https://placehold.co/400">
-                    <h5 class="mt-3">Insert a photo for your event here</h5>
+                    <img src="https://picsum.photos/300/200">
+                    <h5 class="mt-3">A wonderfully generated photo for your event!</h5>
                 </div>
             </div>
             <div class="col-12 col-md-7 gx-3 pr-5">
                 <div class="row form-outline pb-3 mx-3 mx-md-0 mt-3">
                     <label class="form-label" for="createEventName">Name of Event</label>
-                    <input type="text" id="createEventName" class="form-control" pattern="^[a-zA-Z ]+" required/>
+                    <input type="text" id="createEventName" class="form-control" pattern="^[a-zA-Z ]+" th:field="*{title}" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
-                    <label class="form-label" for="createEventDescription">Descrption of Event</label>
-                    <input type="text" id="createEventDescription" class="form-control" required/>
+                    <label class="form-label" for="createEventDescription">Description of Event</label>
+                    <input type="text" id="createEventDescription" class="form-control" th:field="*{description}" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
                     <label class="form-label" for="createEventLocation">Location of Event</label>
-                    <input type="text" id="createEventLocation" class="form-control" required/>
+                    <input type="text" id="createEventLocation" class="form-control" th:field="*{location}" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
-                    <label class="form-label" for="createEventDateTime">Date and Time of Event</label>
-                    <input type="datetime-local" id="createEventDateTime" class="form-control" required/>
+                    <label class="form-label" for="createEventDate">Date of Event</label>
+                    <input type="text" id="createEventDate" class="form-control" th:field="*{date}" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
-                    <label class="form-label" for="createEventHost">Host of Event</label>
-                    <input type="text" id="createEventHost" class="form-control" required/>
+                    <label class="form-label" for="createEventTime">Time of Event</label>
+                    <input type="text" id="createEventTime" class="form-control" th:field="*{time}" required/>
                 </div>
+<!--                <div class="row form-outline pb-3 mx-3 mx-md-0">-->
+<!--                    <label class="form-label" for="createEventHost">Host of Event</label>-->
+<!--                    <input type="text" id="createEventHost" class="form-control" th:field="*{host}" required/>-->
+<!--                </div>-->
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
                     <label class="form-label" for="createEventPrice">Price of Event</label>
-                    <input type="number" id="createEventPrice" class="form-control"/>
+                    <input type="number" id="createEventPrice" class="form-control" th:field="*{price}"/>
                 </div>
-
+                <input type="hidden" th:value="${#authentication.name}" name="user.username">
                 <button type="submit" class="btn btn-outline-dark btn-lg mb-3 mx-3 mx-md-0" id="createEventBtn">Create Event</button>
             </div>
         </div>

@@ -15,6 +15,7 @@ import org.seancorbett.FieldDay.model.Branch;
 @FieldMatch.List({@FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")})
 public class UserDto {
 
+    //ATTRIBUTES
     @NotEmpty(message = "Required")
     @Pattern(regexp = "[A-Za-z]+$", message = "Only alphabetic allowed")
     private String firstName;
@@ -28,10 +29,8 @@ public class UserDto {
     @Email
     private String username;
 
-    //@NotEmpty(message = "Please choose your branch affiliation")
     private Branch branch;
 
-    //@NotEmpty(message = "Please choose if you are still active or not. This can be edited later")
     private Boolean active;
 
     @NotEmpty(message = "Required")
@@ -40,6 +39,7 @@ public class UserDto {
     @NotEmpty(message = "Required")
     private String matchingPassword;
 
+    //CONSTRUCTOR
     public UserDto(@Pattern(regexp = "[A-Za-z]+$", message = "Only alphabetic allowed") String firstName, @Pattern(regexp = "[A-Za-z]+$", message = "Only alphabetic allowed") String lastName, @NotEmpty(message = "Required") @Email String username, @NotEmpty(message = "Please choose your branch affiliation") Branch branch, @NotEmpty(message = "Please choose if you are still active or not. This can be edited later") Boolean active, @NotEmpty(message = "Required") String password, @NotEmpty(message = "Required") String matchingPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +50,7 @@ public class UserDto {
         this.matchingPassword = matchingPassword;
     }
 
+    //GETTERS AND SETTERS
     public String getFirstName() {
         return firstName;
     }

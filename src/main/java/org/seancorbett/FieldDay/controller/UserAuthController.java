@@ -69,23 +69,15 @@ public class UserAuthController {
 
     //mapping for home request
     @GetMapping("/home")
-    public String home() {
+    public String home(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
+        System.out.println(userDto);
 //        User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
 //        User existingUserPassword = userService.findUserByUsername(userDto.getUsername());
-//        if(existingUserEmail = )
+//        if(existingUserEmail != null ){
+//            return "home";
+//        }
+//        return "redirect:/login";
         return "home";
-    }
-
-    //mapping for create events page request
-    @GetMapping("/createEvent")
-    public String createEvent() {
-        return "createEvent";
-    }
-
-    //mapping for viewing events page request
-    @GetMapping("/myEvents")
-    public String myEvents() {
-        return "myEvents";
     }
 
     //ERROR PAGE FOR ERROR HANDLING

@@ -18,14 +18,14 @@
     <script src="https://kit.fontawesome.com/79c970e66a.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-<section class="vh-100 w-100 custom-login-background">
-    <div class="container py-3 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+<body style="background: linear-gradient(to right, #182848, #4b6cb7); background-size: cover;">
+<section class="vh-100 w-100" >
+    <div class="container py-3 vh-100">
+        <div class="row d-flex justify-content-center align-items-center vh-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card bg-dark text-white mb-3" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-                        <form class="mb-md-5 mt-md-4 pb-1" id="loginForm" th:action="@{/login}" method="post" role="form">
+                        <form class="mb-md-5 mt-md-4 pb-1" id="loginForm" th:action="@{/login}" method="post" >
                             <h2 class="fw-bold mb-3 text-uppercase">Login</h2>
                             <div class="form-outline form-white mb-4">
                                 <input type="email" id="email" name="username" class="form-control form-control-lg" required/>

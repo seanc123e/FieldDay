@@ -3,6 +3,7 @@ package org.seancorbett.FieldDay.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "host")
-public class Host {
+public class Host implements Serializable {
 
     //Creation of unique host ID
     @Id

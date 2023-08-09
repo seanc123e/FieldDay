@@ -3,6 +3,7 @@ package org.seancorbett.FieldDay.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
+//@Data
 @Table(name = "event")
-public class Event {
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +26,13 @@ public class Event {
     @Column(nullable = false)
     private String location;
     @Column(nullable = false)
-    private Date date;
+    private String date;
     @Column(nullable = false)
     private String time;
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "host_id")
     private Host host;
 
     private String eventImage = "https://picsum.photos/300/200";
@@ -40,6 +42,7 @@ public class Event {
                 joinColumns = @JoinColumn(name = "eventId"),
                 inverseJoinColumns = @JoinColumn(name = "userId"))
     private List<User> attendees = new ArrayList<User>();
+
 
     //CREATE METHODS
     public Event createEvent(){
