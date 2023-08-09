@@ -17,5 +17,6 @@ public interface UserService extends UserDetailsService {
 
     void saveUser(UserDto userDto);
 
+    void updateUser(User user);
 //    List<UserDto> findAllUsers();
 }

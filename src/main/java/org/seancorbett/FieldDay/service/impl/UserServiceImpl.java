@@ -145,8 +145,8 @@ public class UserServiceImpl implements UserService {
 
 
     //********UPDATE METHODS********
-    public void updateUser(){
-
+    public void updateUser(User user){
+        userRepository.save(user);
     }
 
 

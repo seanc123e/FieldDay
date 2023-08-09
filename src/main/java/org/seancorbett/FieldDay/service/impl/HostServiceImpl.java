@@ -27,7 +27,12 @@ public class HostServiceImpl implements HostService {
             newHost.setBranch(user.getBranch());
             newHost.setActive(user.getActive());
             newHost.setUser(user);
-            return hostRepository.save(newHost);
+            newHost = hostRepository.save(newHost);
+            user.setHost(newHost); // Update the user's hostId
+            return newHost;
+
+            //return hostRepository.save(newHost);
+
         }
     }
 }

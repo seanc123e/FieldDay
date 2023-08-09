@@ -25,6 +25,7 @@ import org.seancorbett.FieldDay.service.UserService;
 import org.seancorbett.FieldDay.service.impl.EventServiceImpl;
 
 import java.sql.SQLOutput;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -48,7 +49,14 @@ public class EventController {
     }
 
     @GetMapping("/myEvents")
-    public String myEvents(){
+    public String myEvents(Authentication authentication){
+        String username = authentication.getName();
+        //getting name of current user
+        User user = userService.findUserByUsername(username);
+        Host host = user.getHost();
+        System.out.println("EVENT_CONTROLLER_HOST::::: " + host);
+        List<Event> events = host.getEvents();
+
         return "myEvents";
     }
 
@@ -70,36 +78,17 @@ public class EventController {
         String username = authentication.getName(); //getting name of current user
         User user = userService.findUserByUsername(username);
 
-        // Create a new Host or associate with an existing one
+        // Create and set a new Host or associate with an existing one
         Host host = hostService.findOrCreateHost(user);
-
         eventDto.setHost(host);
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        // Create the event and associate it with the logged-in user
-        //User user = userService.findUserByUsername(userDetails.getUsername());
-         // Associate the event with the user
-        System.out.println("EVENT_CONTROLLER_HOST::::: " + eventDto.getHost());
         // Save the event to the database (assuming you have a service to handle this)
         eventService.saveEvent(eventDto);
+
+        // Update the user's hostId
+        user.setHost(host);
+        userService.updateUser(user);
 
         return "redirect:/myEvents"; // Redirect to user's events page
     }
 }
-
-
-  /*  User existingUser = userService.findUserByUsername(userDto.getUsername());
-        System.out.println("USER:::   " + userDto);
-                if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
-                result.rejectValue("username", null, "There is already an account registered with the same email");
-                }
-
-                if (result.hasErrors()) {
-                model.addAttribute("user", userDto);
-
-                return "/signup";
-                }
-
-                userService.create(userDto);
-                return "redirect:/signup?success";*/
