@@ -96,12 +96,17 @@
                     <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
                         <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
                     </div>
-                    <div class="col-6 col-lg-12 pt-lg-3">
+                    <div class="col-5 pt-lg-3">
                         <h3 th:text="${event.title}"></h3>
                         <p th:text="${event.date}"></p>
                         <p th:text="${event.location}"></p>
                     </div>
                 </a>
+                <form class="col-5 d-flex align-content-bottom justify-content-end h-25" th:action="@{/event/{eventId}(eventId=${event.eventId})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit" class="btn btn-danger">Delete Event</button>
+<!--                    <button  type="submit" class="">Delete event</button>-->
+                </form>
             </div>
 
         <div class="col-12 mt-4 mt-lg-0" th:if="${#lists.isEmpty(events)}">

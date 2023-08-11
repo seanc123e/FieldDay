@@ -3,20 +3,13 @@ package org.seancorbett.FieldDay.service.impl;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.seancorbett.FieldDay.model.Event;
-import org.seancorbett.FieldDay.model.Role;
-import org.seancorbett.FieldDay.model.User;
 import org.seancorbett.FieldDay.repository.EventRepository;
 import org.seancorbett.FieldDay.service.EventService;
 import org.seancorbett.FieldDay.validation.EventDto;
-import org.seancorbett.FieldDay.validation.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -84,5 +77,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> getAllEvents(){
         return eventRepository.findAll();
+    }
+
+    //DELETE METHODS
+    @Override
+    public void deleteEvent(int eventId){
+        eventRepository.deleteById(Long.valueOf(eventId));
     }
 }

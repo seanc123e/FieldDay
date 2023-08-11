@@ -16,4 +16,7 @@ public interface EventService {
     //READ
     public Event findEventById(int id);
     public List<Event> getAllEvents();
+
+    //DELETE METHODS
+    void deleteEvent(int eventId);
 }

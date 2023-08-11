@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 import static javax.management.Query.and;
 
@@ -29,6 +30,11 @@ public class SecurityConfig {
 
     @Autowired
     private UserServiceImpl userDetailsService;
+
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        return new HiddenHttpMethodFilter();
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
