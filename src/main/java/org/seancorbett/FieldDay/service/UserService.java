@@ -8,15 +8,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-
-    public UserDetails loadUserByUsername(String userName);
-
-    public User findUserByUsername(String username);
-
+    //CREATE
     public void create(UserDto userDto);
 
     void saveUser(UserDto userDto);
 
+    //READ
+    public UserDetails loadUserByUsername(String userName);
+
+    public User findUserByUsername(String username);
+
+    //UPDATE
     void updateUser(User user);
 //    List<UserDto> findAllUsers();
 }

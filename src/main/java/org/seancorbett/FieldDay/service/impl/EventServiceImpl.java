@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -62,6 +63,7 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
     }
 
+    //STORING DATA GRABBED INTO THE DTO
     private EventDto mapToEventDto(Event event) {
         EventDto eventDto = new EventDto();
 
@@ -74,9 +76,13 @@ public class EventServiceImpl implements EventService {
         return eventDto;
     }
 
+    //READ METHODS
     @Override
     public Event findEventById(int id) {
-        return null;
+        return eventRepository.findById((long) id).orElse(null);
     }
-
+    @Override
+    public List<Event> getAllEvents(){
+        return eventRepository.findAll();
+    }
 }

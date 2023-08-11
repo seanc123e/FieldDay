@@ -48,7 +48,7 @@ public class User implements Serializable {
             )})
     public List<Role> roles = new ArrayList<>();
 
-    public User(String firstName, String lastName, String username, String password, Branch branch, Boolean active, List<Event> userEvents) {
+    public User(String firstName, String lastName, String username, String password, Branch branch, Boolean active, List<Event> userEvents, List<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -56,6 +56,7 @@ public class User implements Serializable {
         this.branch = branch;
         this.active = active;
         this.userEvents = userEvents;
+        this.roles = roles;
     }
 
     public int getUserId() {

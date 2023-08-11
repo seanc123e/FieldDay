@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.seancorbett.FieldDay.model.Event;
 import org.seancorbett.FieldDay.model.Host;
 import org.seancorbett.FieldDay.model.User;
+import org.seancorbett.FieldDay.repository.EventRepository;
 import org.seancorbett.FieldDay.service.EventService;
 import org.seancorbett.FieldDay.service.HostService;
 import org.seancorbett.FieldDay.validation.EventDto;
@@ -16,10 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.seancorbett.FieldDay.config.CustomUserDetails;
 import org.seancorbett.FieldDay.service.UserService;
 import org.seancorbett.FieldDay.service.impl.EventServiceImpl;
@@ -27,10 +25,14 @@ import org.seancorbett.FieldDay.service.impl.EventServiceImpl;
 import java.sql.SQLOutput;
 import java.util.List;
 
+import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Field;
+
 @Controller
 @RequestMapping("/")
 @Slf4j
 public class EventController {
+    @Autowired
+    private EventRepository eventRepository;
 
     @Autowired
     private final EventService eventService;
@@ -46,18 +48,6 @@ public class EventController {
         this.eventService = eventService;
         this.userService = userService;
         this.hostService = hostService;
-    }
-
-    @GetMapping("/myEvents")
-    public String myEvents(Authentication authentication){
-        String username = authentication.getName();
-        //getting name of current user
-        User user = userService.findUserByUsername(username);
-        Host host = user.getHost();
-        System.out.println("EVENT_CONTROLLER_HOST::::: " + host);
-        List<Event> events = host.getEvents();
-
-        return "myEvents";
     }
 
     @GetMapping("/createEvent")
@@ -85,10 +75,51 @@ public class EventController {
         // Save the event to the database (assuming you have a service to handle this)
         eventService.saveEvent(eventDto);
 
-        // Update the user's hostId
+        // Update the user's hostId ****FOR OPTIMIZATION MOVE THIS METHOD TO FINDORCREATEHOST()****
         user.setHost(host);
         userService.updateUser(user);
 
         return "redirect:/myEvents"; // Redirect to user's events page
     }
+
+    @GetMapping("/home")
+    public String showEventsHome(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model){
+        User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
+        User existingUserPassword = userService.findUserByUsername(userDto.getUsername());
+        List<Event> events = eventService.getAllEvents();
+        model.addAttribute("events", events);
+
+        return "home";
+    }
+
+    @GetMapping("/event/{eventId}")
+    public String viewEvent(@PathVariable int eventId, Model model){
+       Event event = eventService.findEventById(eventId);
+         if(event == null){
+            return "error";
+        } else{
+            model.addAttribute("event", event);
+        }
+        System.out.println("EVENT_CONTROLLER_EVENT_ID:::::: " + event.getEventId());
+        return "/viewEvent";
+    }
+
+    @GetMapping("/myEvents")
+    public String myEvents(Model model, Authentication authentication){
+        String username = authentication.getName();
+        //getting name of current user
+        User user = userService.findUserByUsername(username);
+        Host host = user.getHost();
+        //System.out.println("EVENT_CONTROLLER_HOST::::: " + host);
+        if (host != null) {
+            List<Event> events = host.getEvents();
+
+            if(events != null) {
+                model.addAttribute("events", events);
+            }
+        }
+
+        return "myEvents";
+    }
+
 }

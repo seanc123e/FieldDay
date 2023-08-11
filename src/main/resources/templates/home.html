@@ -61,36 +61,15 @@
     <hr>
   </div>
   <div class="row px-3 px-md-5 mt-3 mb-5">
-    <div class="col-12 col-lg-3 mt-2 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
-        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3">
+    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3" th:each="event : ${events}">
+      <a th:href="@{'/event/' + ${event.eventId}}" class="row gx-2 activityTitle">
+        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
           <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
         </div>
         <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Morning Run</h3>
-          <p>July 14, 2023</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
-        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3">
-          <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
-        </div>
-        <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Game Night</h3>
-          <p>July 8, 2023</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
-        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3">
-          <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
-        </div>
-        <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Yoga in the Park</h3>
-          <p>August 1, 2023</p>
+          <h3 th:text="${event.title}"></h3>
+          <p th:text="${event.date}"></p>
+          <p th:text="${event.location}"></p>
         </div>
       </a>
     </div>
@@ -100,42 +79,22 @@
       </a>
     </div>
   </div>
+
   <!--EVENTS FARTHER AWAY-->
   <div class="w-100">
     <h2 class="fw-bold px-3 px-md-5">Events a little farther away</h2>
     <hr>
   </div>
-  <div class="row px-3 px-md-5 mt-3">
-    <div class="col-12 col-lg-3 mt-2 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
+  <div class="row px-3 px-md-5 mt-3 mb-5">
+    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3" th:each="event : ${events}">
+      <a th:href="@{'/event/' + ${event.eventId}}" class="row gx-2 activityTitle">
         <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
           <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
         </div>
         <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Hiking</h3>
-          <p>July 18, 2023</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
-        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
-          <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
-        </div>
-        <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Volunteering at the Soup Kitchen</h3>
-          <p>July 10, 2023</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3">
-      <a href="#" class="row gx-2 activityTitle">
-        <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
-          <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
-        </div>
-        <div class="col-6 col-lg-12 pt-lg-3">
-          <h3>Beach Day</h3>
-          <p>July 29, 2023</p>
+          <h3 th:text="${event.title}"></h3>
+          <p th:text="${event.date}"></p>
+          <p th:text="${event.location}"></p>
         </div>
       </a>
     </div>

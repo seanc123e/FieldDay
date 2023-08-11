@@ -29,6 +29,7 @@
                                 <div th:if="${param.success}">
                                     <div class="alert alert-info">
                                         You have successfully registered our app!
+                                        <a th:href="@{/login}" id="loginOnSignup" class="text-dark-50 registerBtn">Login here</a>
                                     </div>
                                 </div>
                                 <form class="mx-1 mx-md-4" id="signupForm"

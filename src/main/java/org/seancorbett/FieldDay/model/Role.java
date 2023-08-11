@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name ="roles")
-public class Role implements Serializable {
+public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +27,9 @@ public class Role implements Serializable {
     @ManyToMany(mappedBy = "roles")
     List<User> users = new ArrayList<>();
 
-    public Role(String name) {
+    public Role(String name, List<User> users) {
         this.name = name;
+        this.users = users;
     }
 
     @Override

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+/*document.addEventListener("DOMContentLoaded", (event) => {
     // LOGIN PAGE
     if (window.location.pathname.split("/").at(-1) == "login.html") {
         let loginForm = document.getElementById("loginForm");
@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             e.preventDefault(); //preventing defualt refresh on forms so that the data can stick
             document.cookie = "loggedIn";
             console.log(document.cookie);
-            window.location.replace("index.html");
+            //window.location.replace("home.html");
         })
     }
 
     //HOME PAGE ADDING PROFILE ICON ON LOGIN
-    if ((window.location.pathname.split("/").at(-1) == "index.html" && document.cookie == "loggedIn") || (window.location.pathname.split("/").at(-1) == "myEvents.html" && document.cookie == "loggedIn") || (window.location.pathname.split("/").at(-1) == "createEvent.html" && document.cookie == "loggedIn")) {
+    if ((window.location.pathname.split("/").at(-1) == "home.html" && document.cookie == "loggedIn") || (window.location.pathname.split("/").at(-1) == "myEvents.html" && document.cookie == "loggedIn") || (window.location.pathname.split("/").at(-1) == "createEvent.html" && document.cookie == "loggedIn")) {
         console.log(document.cookie);
         let loginSignupBtn = document.getElementById("loginSignupBtn");
         console.log(loginSignupBtn);
@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             document.cookie = "loggedOut";
             loginSignupBtn.innerHTML = "Logout";
         })
-    }
+    }*/
+/*
 
     //MY EVENTS PAGE
     if (window.location.pathname.split("/").at(-1) == "myEvents.html") {
@@ -95,4 +96,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-})
+})*/

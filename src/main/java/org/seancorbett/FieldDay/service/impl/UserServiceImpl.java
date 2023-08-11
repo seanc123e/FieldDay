@@ -45,7 +45,48 @@ public class UserServiceImpl implements UserService {
         this.encoder = encoder;
     }
 
-    //********LOADS USER, USERNAME IS ACTUALLY EMAIL********
+    //********CREATE AND SAVE METHODS********
+    @Transactional
+    public void create(UserDto userDto) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        User user = modelMapper.map(userDto, User.class);
+        user.setPassword(encoder.encode(user.getPassword()));
+
+        Role role = roleRepository.findRoleByName("USER_ROLE");
+        if (role == null) {
+            role = checkRoleExist();
+        }
+        user.setRoles(Arrays.asList(role));
+
+        System.out.println("USER:::: " + user.getRoles().get(0));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+        User user = new User();
+
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setUsername(userDto.getUsername());
+        user.setBranch(userDto.getBranch());
+        user.setActive(userDto.getActive());
+        user.setPassword(userDto.getPassword());
+
+        // Encrypt the password using Spring Security
+        user.setPassword(encoder.encode(userDto.getPassword()));
+
+        Role role = roleRepository.findRoleByName("USER_ROLE");
+        if (role == null) {
+            role = checkRoleExist();
+        }
+        user.setRoles(Arrays.asList(role));
+        System.out.println("USER:::: " + user.getRoles().get(0));
+        userRepository.save(user);
+    }
+
+    //********READ METHODS********
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -64,48 +105,16 @@ public class UserServiceImpl implements UserService {
 
         return new UserPrincipal(user);
     }
-
-    //********CREATE METHODS********
-    @Transactional
-    public void create(UserDto userDto) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        User user = modelMapper.map(userDto, User.class);
-        user.setPassword(encoder.encode(user.getPassword()));
-
-        Role role = roleRepository.findRoleByName("ROLE_ADMIN");
-        if (role == null) {
-            role = checkRoleExist();
-        }
-        user.setRoles(Arrays.asList(role));
-
-        System.out.println("USER:::: " + user.getRoles().get(0));
-        userRepository.save(user);
+    public User getUserById() {
+        return null;
     }
 
-
-    private Role checkRoleExist() {
-        Role role = new Role();
-        role.setName("USER_ROLE");
-        return roleRepository.save(role);
+    public List<Event> getUserEvents(){
+        return null;
     }
 
-
-    @Override
-    public void saveUser(UserDto userDto) {
-        User user = new User();
-
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setUsername(userDto.getUsername());
-        user.setBranch(userDto.getBranch());
-        user.setActive(userDto.getActive());
-        user.setPassword(userDto.getPassword());
-
-        // Encrypt the password using Spring Security
-        user.setPassword(encoder.encode(userDto.getPassword()));
-        System.out.println("USER:::: " + user.getRoles().get(0));
-        userRepository.save(user);
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
 
     public List<UserDto> findAllUsers() {
@@ -114,6 +123,17 @@ public class UserServiceImpl implements UserService {
         return users.stream()
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());
+    }
+
+    private Role checkRoleExist() {
+        Role role = new Role();
+        role.setName("USER_ROLE");
+        return roleRepository.save(role);
+    }
+
+    //********UPDATE METHODS********
+    public void updateUser(User user){
+        userRepository.save(user);
     }
 
     private UserDto mapToUserDto(User user) {
@@ -127,27 +147,4 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDto.getPassword());
         return userDto;
     }
-
-
-
-    //********READ METHODS********
-    public User getUserById() {
-        return null;
-    }
-
-    public List<Event> getUserEvents(){
-        return null;
-    }
-
-    public User findUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
-    }
-
-
-    //********UPDATE METHODS********
-    public void updateUser(User user){
-        userRepository.save(user);
-    }
-
-
 }

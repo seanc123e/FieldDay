@@ -47,41 +47,6 @@ public class SecurityConfig {
 //TODO - finish authentication and authorization
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-                /*.authorizeHttpRequests((auth) ->
-                        auth
-                                .requestMatchers(requestMatcher("/", "/login*", "/css/*", "/js/*", "/signup", "/signup-process", "/error"))
-                                //.antMatchers("/login", "/static/**", "/signup", "/signup-process")
-                                .permitAll()
-                                .requestMatchers(requestMatcher("/", "/home*", "/createEvent", "/myEvents", "/profile")) //antmatchers and use home and use roles
-                                //.antMatchers("/", "/home", "/createEvent", "/myEvents", "/profile")
-                                .authenticated()
-                )
-                *//*.authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers(requestMatcher("/",  "/createEvent", "/myEvents", "/profile")) // "/home**",antmatchers and use home and use roles
-                                .antMatchers("/", "/createEvent", "/myEvents", "/profile")
-                                .authenticated()
-                                .anyRequest()
-                                .denyAll()
-                )*//*
-                .formLogin(form ->
-                        form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home", true)
-                                .permitAll()
-                )
-                .logout(logout ->
-                        logout
-                                //.logoutUrl("/logout")
-                                .invalidateHttpSession(true)
-                                .clearAuthentication(true)
-                                //.deleteCookies("JSESSIONID")
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/login")
-                                .permitAll()
-                )*/
             //TODO DEFINE RELATIONSHIP FOR ROLES CLASS, ADD ROLES INTO SQL TABLE
         http
             .csrf((csrf) -> csrf.disable())
@@ -95,7 +60,8 @@ public class SecurityConfig {
                         .requestMatchers(requestMatcher("/home")).permitAll()
                         .requestMatchers(requestMatcher("/createEvent")).permitAll()
                         .requestMatchers(requestMatcher("/myEvents")).permitAll()
-                        .requestMatchers(requestMatcher("/events")).permitAll();
+                        .requestMatchers(requestMatcher("/events")).permitAll()
+                        .requestMatchers(requestMatcher("/event/**")).permitAll();
 //                        .requestMatchers(requestMatcher("/home")).hasRole("USER_ROLE");
                 })
                 .formLogin(

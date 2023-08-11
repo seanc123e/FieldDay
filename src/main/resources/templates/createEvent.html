@@ -83,15 +83,15 @@
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
                     <label class="form-label" for="createEventDate">Date of Event</label>
-                    <input type="text" id="createEventDate" class="form-control" th:field="*{date}" required/>
+                    <input type="text" id="createEventDate" class="form-control" th:field="*{date}" placeholder="MM/DD/YYYY" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
                     <label class="form-label" for="createEventTime">Time of Event</label>
-                    <input type="text" id="createEventTime" class="form-control" th:field="*{time}" required/>
+                    <input type="text" id="createEventTime" class="form-control" th:field="*{time}" placeholder="12:00" required/>
                 </div>
                 <div class="row form-outline pb-3 mx-3 mx-md-0">
                     <label class="form-label" for="createEventPrice">Price of Event</label>
-                    <input type="number" id="createEventPrice" class="form-control" th:field="*{price}"/>
+                    <input type="number" id="createEventPrice" class="form-control" th:field="*{price}" placeholder="10"/>
                 </div>
                 <input type="hidden" th:value="${#authentication.name}" name="user.username">
                 <button type="submit" class="btn btn-outline-dark btn-lg mb-3 mx-3 mx-md-0" id="createEventBtn">Create Event</button>

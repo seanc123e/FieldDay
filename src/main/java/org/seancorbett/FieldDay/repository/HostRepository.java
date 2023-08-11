@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HostRepository extends JpaRepository<Host, Long> {
-    Host findByUser(User user);
 
+    //CREATE
     Host save(Host newHost);
+
+    //READ
+    Host findByUser(User user);
 }

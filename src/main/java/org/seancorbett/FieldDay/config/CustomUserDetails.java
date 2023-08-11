@@ -1,9 +1,14 @@
 package org.seancorbett.FieldDay.config;
 
+import org.seancorbett.FieldDay.model.User;
+import org.seancorbett.FieldDay.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -11,6 +16,7 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
+    //private final UserRepository userRepository;
 
 
     public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -24,6 +30,20 @@ public class CustomUserDetails implements UserDetails {
         return authorities;
     }
 
+
+    /*public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+
+        User user = userRepository.findUserByUsername(usernameOrEmail);
+        if(user != null) {
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                    user.getPassword(),
+                    user.getRoles().stream()
+                            .map((role) -> new SimpleGrantedAuthority(role.getName()))
+                            .collect(Collectors.toList()));
+        } else {
+            throw new UsernameNotFoundException("Invalid email or password");
+        }
+    }*/
     @Override
     public String getPassword() {
         return password;
@@ -33,8 +53,6 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return username;
     }
-
-    // Other UserDetails methods (e.g., isEnabled, isAccountNonExpired, etc.) can be implemented here.
 
     @Override
     public boolean isAccountNonExpired() {

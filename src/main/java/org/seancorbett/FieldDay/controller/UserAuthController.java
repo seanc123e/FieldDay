@@ -23,6 +23,7 @@ import java.util.List;
 @RequestMapping("/")
 @Slf4j
 public class UserAuthController {
+    //TODO ADD LOGGING BACK IN
     private UserService userService;
 
     @Autowired
@@ -39,7 +40,6 @@ public class UserAuthController {
     //registration form request
     @GetMapping("/signup")
     public String showSignupForm(Model model) {
-
         // create a model object to store form data
         UserDto user = new UserDto();
         model.addAttribute("user", user);
@@ -68,7 +68,7 @@ public class UserAuthController {
     }
 
     //mapping for home request
-    @GetMapping("/home")
+/*    @GetMapping("/home")
     public String home(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
         System.out.println(userDto);
 //        User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
@@ -78,7 +78,7 @@ public class UserAuthController {
 //        }
 //        return "redirect:/login";
         return "home";
-    }
+    }*/
 
     //ERROR PAGE FOR ERROR HANDLING
     @GetMapping("/error")
