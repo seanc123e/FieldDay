@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -31,6 +32,7 @@ public class SecurityConfig {
     @Autowired
     private UserServiceImpl userDetailsService;
 
+    //Inserted to allow the post method for delete event to actually be a delete method.
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();
@@ -51,24 +53,27 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(11);
     }
 //TODO - finish authentication and authorization
+
+    //security filter chain allowing access to pages
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            //TODO DEFINE RELATIONSHIP FOR ROLES CLASS, ADD ROLES INTO SQL TABLE
         http
             .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authz) -> {
                     authz
-                        .requestMatchers(requestMatcher("/signup/**")).permitAll()
-//                        .requestMatchers(requestMatcher("/login")).permitAll()
-                        .requestMatchers(requestMatcher("/js/**")).permitAll()
-                        .requestMatchers(requestMatcher("/css/**")).permitAll()
-                        .requestMatchers(requestMatcher("/images/**")).permitAll()
-                        .requestMatchers(requestMatcher("/home")).permitAll()
-                        .requestMatchers(requestMatcher("/createEvent")).permitAll()
-                        .requestMatchers(requestMatcher("/myEvents")).permitAll()
-                        .requestMatchers(requestMatcher("/events")).permitAll()
-                        .requestMatchers(requestMatcher("/event/**")).permitAll();
-//                        .requestMatchers(requestMatcher("/home")).hasRole("USER_ROLE");
+                        .requestMatchers( //new MvcRequestMatcher("/"),
+                                /*new MvcRequestMatcher("/css/**"),
+                                new MvcRequestMatcher("/js/**"),
+                                new MvcRequestMatcher("/images/**"),
+                                new AntPathRequestMatcher("/login"),
+                                new AntPathRequestMatcher("/signup"))*/
+                                requestMatcher("/login", "/signup/**", "/js/**", "/css/**",  "/images/**"))//)
+                        .permitAll()
+                        .requestMatchers(requestMatcher("/home", "/createEvent", "/myEvents", "/events","/event/**","/shuffle/**"))
+                        //.hasRole("USER_ROLE")
+                        .hasAnyRole("USER_ROLE")
+                        .anyRequest()
+                        .authenticated();
                 })
                 .formLogin(
                         form -> form
@@ -79,11 +84,11 @@ public class SecurityConfig {
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .permitAll());
-//                .exceptionHandling(exceptionHandling ->
-//                        exceptionHandling
-//                                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-//                );
+                                .permitAll())
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                );
         return http.build();
     }
 

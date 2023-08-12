@@ -23,6 +23,8 @@ import org.seancorbett.FieldDay.service.UserService;
 import org.seancorbett.FieldDay.service.impl.EventServiceImpl;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Field;
@@ -86,13 +88,32 @@ public class EventController {
     public String showEventsHome(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model){
         User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
         User existingUserPassword = userService.findUserByUsername(userDto.getUsername());
-        List<Event> events = eventService.getAllEvents();
-        model.addAttribute("events", events);
+        List<Integer> randomEvents = eventRepository.shuffleEventsByIds();
+        for(Integer randomevent : randomEvents){
+            Collections.shuffle(randomEvents);
+
+            System.out.println("EVENT_CONTROLLER_RANDOM_EVENTS::::: " + randomEvents);
+
+            Event randomEvent = eventService.findEventById(randomEvents.get(0));
+            model.addAttribute("randomEvent", randomEvent);
+            return "home";
+        }
 
         return "home";
     }
 
-    @GetMapping("/event/{eventId}")
+    //Fetching random events for home page
+   /* @GetMapping("/shuffle")
+    public Event fetchRandomEvents() {
+        List<Event> randomEvents = eventRepository.shuffleEventsByIds(1, 2, 3);
+        Collections.shuffle(randomEvents);
+
+        System.out.println("EVENT_CONTROLLER_RANDOM_EVENTS::::: " + randomEvents);
+        return randomEvents.get(0);
+    }*/
+
+
+@GetMapping("/event/{eventId}")
     public String viewEvent(@PathVariable int eventId, Model model){
        Event event = eventService.findEventById(eventId);
          if(event == null){

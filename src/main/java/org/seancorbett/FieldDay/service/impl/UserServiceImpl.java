@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        CustomUserDetails userDetails = new CustomUserDetails("username", "encodedPassword", authorities);
+        CustomUserDetails userDetails = new CustomUserDetails("username", "encodedPassword", userRepository, authorities);
 
         return new UserPrincipal(user);
     }

@@ -14,14 +14,16 @@ public class CustomUserDetails implements UserDetails {
 
     private String username;
     private String password;
+    private final UserRepository userRepository;
     private Collection<? extends GrantedAuthority> authorities;
 
     //private final UserRepository userRepository;
 
 
-    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetails(String username, String password, UserRepository userRepository, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
+        this.userRepository = userRepository;
         this.authorities = authorities;
     }
 
@@ -31,7 +33,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
-    /*public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
 
         User user = userRepository.findUserByUsername(usernameOrEmail);
         if(user != null) {
@@ -43,7 +45,8 @@ public class CustomUserDetails implements UserDetails {
         } else {
             throw new UsernameNotFoundException("Invalid email or password");
         }
-    }*/
+    }
+
     @Override
     public String getPassword() {
         return password;
