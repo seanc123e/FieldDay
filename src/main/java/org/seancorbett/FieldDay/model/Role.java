@@ -1,5 +1,7 @@
 package org.seancorbett.FieldDay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class Role implements Serializable{
     private String name;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     List<User> users = new ArrayList<>();
 
     public Role(String name, List<User> users) {

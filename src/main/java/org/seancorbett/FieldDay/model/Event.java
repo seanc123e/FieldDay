@@ -1,5 +1,7 @@
 package org.seancorbett.FieldDay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +35,7 @@ public class Event implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id")
+    @JsonBackReference
     private Host host;
 
     private String eventImage = "https://picsum.photos/300/200";

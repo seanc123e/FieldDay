@@ -61,16 +61,14 @@ public class SecurityConfig {
             .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authz) -> {
                     authz
-                        .requestMatchers( //new MvcRequestMatcher("/"),
-                                /*new MvcRequestMatcher("/css/**"),
-                                new MvcRequestMatcher("/js/**"),
-                                new MvcRequestMatcher("/images/**"),
-                                new AntPathRequestMatcher("/login"),
-                                new AntPathRequestMatcher("/signup"))*/
-                                requestMatcher("/login", "/signup/**", "/js/**", "/css/**",  "/images/**"))//)
-                        .permitAll()
-                        .requestMatchers(requestMatcher("/home", "/createEvent", "/myEvents", "/events","/event/**","/shuffle/**"))
-                        //.hasRole("USER_ROLE")
+                        .requestMatchers(requestMatcher("/signup")).permitAll()//, "/images/**" "/css/**)
+                        .requestMatchers(requestMatcher("/signup/save")).permitAll()
+                        .requestMatchers(requestMatcher("/images/**")).permitAll()
+                        .requestMatchers(requestMatcher("/css/**")).permitAll()
+                        .requestMatchers(requestMatcher("/js/**")).permitAll()
+                        .requestMatchers(requestMatcher( "/shuffle" )).permitAll()
+                        .requestMatchers(requestMatcher("/home")).permitAll()
+                        .requestMatchers(requestMatcher("/createEvent", "/myEvents", "/events","/event/**"))//"/js/**", "/home", ,"/shuffle"
                         .hasAnyRole("USER_ROLE")
                         .anyRequest()
                         .authenticated();
@@ -94,6 +92,7 @@ public class SecurityConfig {
 
     private RequestMatcher requestMatcher(String... patterns) {
         String pattern = String.join(",", patterns);
+        System.out.println("PATTERN:::: " + pattern);
         return new AntPathRequestMatcher(pattern);
     }
 }

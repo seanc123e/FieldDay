@@ -1,5 +1,6 @@
 package org.seancorbett.FieldDay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
 
     @OneToOne (targetEntity = Host.class)
     @JoinColumn(name = "host_id")
+    @JsonBackReference
     private Host host;
 
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)

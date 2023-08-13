@@ -13,9 +13,11 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query(value = "select event_id from fielddaydb.event ", nativeQuery = true) // where event_id in (:id1, :id2, :id3)
-    public List<Integer> shuffleEventsByIds();//@Param("id1") long id1, @Param("id2") long id2, @Param("id3") long id3
+    @Query(value = "SELECT * FROM fielddaydb.event ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    public List<Event> shuffleEvents();
 
-    @Query(value = "SELECT * FROM events ORDER BY RAND() LIMIT :limit", nativeQuery = true)
-    List<Event> shuffleEvents(@Param("limit") int limit);
+    //queries the database for whatever the user searches for in the search bar
+    @Query(value = "SELECT * FROM fielddaydb.event WHERE title LIKE '%:search%'", nativeQuery = true)
+    public List<Event> findEventByTitle(String search);
+
 }

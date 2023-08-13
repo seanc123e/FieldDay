@@ -1,5 +1,7 @@
 package org.seancorbett.FieldDay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +24,7 @@ public class Host implements Serializable {
     //Creation of relationship to userId
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
+    @JsonBackReference//referencing Jackson to handle serialization and deserialization of relationships to avoid ciruclar dependencies
     private User user;
 
     private String firstName;
