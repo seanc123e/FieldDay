@@ -29,10 +29,8 @@ public class HostServiceImpl implements HostService {
             newHost.setUser(user);
             newHost = hostRepository.save(newHost);
             user.setHost(newHost); // Update the user's hostId
+
             return newHost;
-
-            //return hostRepository.save(newHost);
-
         }
     }
 }

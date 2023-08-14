@@ -5,6 +5,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+//Custom annotation for signup passwod setting to validate that password and matchingPassword are the same
 @Constraint(validatedBy = FieldMatchValidator.class)
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)

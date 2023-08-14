@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HostRepository extends JpaRepository<Host, Long> {
 
-    //CREATE
+    //CREATE --don't think I need this method. Will remove at a later date
     Host save(Host newHost);
 
     //READ

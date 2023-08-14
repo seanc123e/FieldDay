@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
+    //queries the database to shuffle the list of events in the database to return random events on the home page
     @Query(value = "SELECT * FROM fielddaydb.event ORDER BY RAND() LIMIT 3", nativeQuery = true)
     public List<Event> shuffleEvents();
 

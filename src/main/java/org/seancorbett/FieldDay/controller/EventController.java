@@ -31,6 +31,7 @@ import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Field;
 @RequestMapping("/")
 @Slf4j
 public class EventController {
+    //Controller for all event related mappings
     @Autowired
     private EventRepository eventRepository;
 
@@ -109,7 +110,7 @@ public class EventController {
         return randomEvents;
     }
 
-
+//url path for when a user clicks on a specific event
 @GetMapping("/event/{eventId}")
     public String viewEvent(@PathVariable int eventId, Model model){
        Event event = eventService.findEventById(eventId);
@@ -140,6 +141,7 @@ public class EventController {
         return "myEvents";
     }
 
+    //method for handling DELETING events
     @RequestMapping(value = "/event/{eventId}", method = RequestMethod.DELETE)
     public String deleteEvent(@PathVariable(name = "eventId") int eventId){
         eventService.deleteEvent(eventId);

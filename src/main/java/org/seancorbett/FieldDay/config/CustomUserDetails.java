@@ -17,9 +17,7 @@ public class CustomUserDetails implements UserDetails {
     private final UserRepository userRepository;
     private Collection<? extends GrantedAuthority> authorities;
 
-    //private final UserRepository userRepository;
-
-
+    //grants authorities to users with roles
     public CustomUserDetails(String username, String password, UserRepository userRepository, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;

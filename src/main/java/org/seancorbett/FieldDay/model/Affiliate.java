@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "affiliation")
 public class Affiliate {
 
+    //affiliate class will eventually count each member who has signed up with specific branches so the application can gather data of total individuals affiliated with a certain branch
     @Id
     private Branch branch;
     private Boolean active;

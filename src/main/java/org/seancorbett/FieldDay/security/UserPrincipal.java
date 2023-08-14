@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+//this class establishes and grants authorities to users
 public class UserPrincipal implements UserDetails {
     private User user;
 

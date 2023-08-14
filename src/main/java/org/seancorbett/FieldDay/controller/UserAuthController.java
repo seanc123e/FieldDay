@@ -34,6 +34,7 @@ public class UserAuthController {
     //login request
     @GetMapping("/login")
     public String login() {
+        log.info("Login successful");
         return "login";
     }
 
@@ -67,26 +68,14 @@ public class UserAuthController {
 
     }
 
-    //mapping for home request
-/*    @GetMapping("/home")
-    public String home(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
-        System.out.println(userDto);
-//        User existingUserEmail = userService.findUserByUsername(userDto.getUsername());
-//        User existingUserPassword = userService.findUserByUsername(userDto.getUsername());
-//        if(existingUserEmail != null ){
-//            return "home";
-//        }
-//        return "redirect:/login";
-        return "home";
-    }*/
-
     //ERROR PAGE FOR ERROR HANDLING
     @GetMapping("/error")
     public String error(){
+        log.warn("Error");
         return "error";
     }
 
-    // handler method is used to handle a list of users
+    // handler method is used to handle a list of users -- will implement later
     /*@GetMapping("/users")
     public String users(Model model) {
         List<UserDto> users = userService.findAllUsers();
