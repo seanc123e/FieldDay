@@ -65,9 +65,9 @@ public class SecurityConfig {
                         .requestMatchers(requestMatcher("/signup/save")).permitAll()
                         .requestMatchers(requestMatcher("/images/**")).permitAll()
                         .requestMatchers(requestMatcher("/css/**")).permitAll()
-                        .requestMatchers(requestMatcher("/js/**")).permitAll()
                         .requestMatchers(requestMatcher( "/shuffle" )).permitAll()
                         .requestMatchers(requestMatcher("/home")).permitAll()
+                        .requestMatchers(requestMatcher("/js/**")).permitAll()
                         .requestMatchers(requestMatcher("/createEvent", "/myEvents", "/events","/event/**"))//"/js/**", "/home", ,"/shuffle"
                         .hasAnyRole("USER_ROLE")
                         .anyRequest()

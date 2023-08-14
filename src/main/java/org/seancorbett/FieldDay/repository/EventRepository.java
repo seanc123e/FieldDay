@@ -17,7 +17,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     public List<Event> shuffleEvents();
 
     //queries the database for whatever the user searches for in the search bar
-    @Query(value = "SELECT * FROM fielddaydb.event WHERE title LIKE '%:search%'", nativeQuery = true)
-    public List<Event> findEventByTitle(String search);
+    @Query(value = "SELECT * FROM fielddaydb.event WHERE title LIKE %:search%", nativeQuery = true)
+    public List<Event> findEventsByTitle(@Param("search") String search);
+
 
 }
