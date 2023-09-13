@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
     }
 
     //STORING DATA GRABBED INTO THE DTO
-    private EventDto mapToEventDto(Event event) {
+/*    private EventDto mapToEventDto(Event event) {
         EventDto eventDto = new EventDto();
 
         event.setTitle(eventDto.getTitle());
@@ -67,12 +67,18 @@ public class EventServiceImpl implements EventService {
         event.setTime(eventDto.getTime());
         event.setPrice(eventDto.getPrice());
         return eventDto;
-    }
+    }*/
 
     //READ METHODS
     @Override
     public Event findEventById(int id) {
         return eventRepository.findById((long) id).orElse(null);
+    }
+
+    //TODO-add search feature
+    public List<Event> findEventsByTitle(String title){
+
+        return eventRepository.findAll();
     }
     @Override
     public List<Event> getAllEvents(){

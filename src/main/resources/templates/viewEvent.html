@@ -62,11 +62,15 @@
       </div>
       <div class="col-12 col-md-7 pt-lg-3">
         <h1 class="fs-5" th:text="${event.title}"></h1>
-        <span class="fs-2" th:text="${event.date}"></span>@<span class="fs-2" th:text="${event.time}"></span>
+        <span class="fs-2" th:text="${event.date}"></span> @ <span class="fs-2" th:text="${event.time}"></span>
         <p th:text="${event.location}"></p>
         <p th:text="${event.description}"></p>
         <p th:text="${event.price}"></p>
       </div>
+  </div>
+  <div>
+    <input type="hidden" th:value="${#authentication.name}" name="user.username">
+    <button type="submit" class="btn btn-outline-dark btn-lg mb-3 mx-3 mx-md-0" id="registerForEventBtn">Register for event</button>
   </div>
 </div>
 

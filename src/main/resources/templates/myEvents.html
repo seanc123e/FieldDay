@@ -93,7 +93,7 @@
         <div class="row px-3 px-md-5 mt-3 mb-5">
             <div class="col-12 col-lg-3 mt-4 mt-lg-0 mb-lg-3" th:each="event : ${events}">
                 <a th:href="@{'/event/' + ${event.eventId}}" class="row gx-2 activityTitle">
-                    <div class="col-6 col-lg-12 mb-4 mb-lg-0 ratio ratio-4x3 ">
+                    <div class="col-6 col-lg-6 mb-4 mb-lg-0 ratio ratio-4x3 ">
                         <img class="img-fluid rounded" th:src="@{https://picsum.photos/300/200}">
                     </div>
                     <div class="col-5 pt-lg-3">
@@ -102,9 +102,9 @@
                         <p th:text="${event.location}"></p>
                     </div>
                 </a>
-                <form class="col-5 d-flex align-content-bottom justify-content-end h-25" th:action="@{/event/{eventId}(eventId=${event.eventId})}" method="post">
+                <form class="col-5 d-flex justify-content-end" th:action="@{/event/{eventId}(eventId=${event.eventId})}" method="post">
                     <input type="hidden" name="_method" value="DELETE" />
-                    <button type="submit" class="btn btn-danger">Delete Event</button>
+                    <button type="submit" class="btn btn-danger my-1 justify-content-center">Delete Event</button>
 <!--                    <button  type="submit" class="">Delete event</button>-->
                 </form>
             </div>

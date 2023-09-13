@@ -62,7 +62,7 @@ public class UserAuthController {
 
             return "/signup";
         }
-
+        log.info("Signup successful");
         userService.create(userDto);
         return "redirect:/signup?success";
 
@@ -71,7 +71,7 @@ public class UserAuthController {
     //ERROR PAGE FOR ERROR HANDLING
     @GetMapping("/error")
     public String error(){
-        log.warn("Error");
+        //log.info("Bypass error");
         return "error";
     }
 
